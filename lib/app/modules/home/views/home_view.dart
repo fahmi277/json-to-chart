@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -898,6 +900,7 @@ class HomeView extends GetView<HomeController> {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -909,31 +912,40 @@ class HomeView extends GetView<HomeController> {
                   ListTimbangan(
                       beratHewan: "127.5",
                       counterPenimbangan: "1",
-                      tangalPenimbangan: "27 Juli 2022"),
+                      arrowUp: true,
+                      tangalPenimbangan: "27-07-2022"),
                   ListTimbangan(
                       colorCounter: Colors.yellow,
                       beratHewan: "124.1",
+                      info: "3.40 Kg",
                       counterPenimbangan: "2",
-                      tangalPenimbangan: "27 Agustus 2022"),
+                      tangalPenimbangan: "27-08-2022"),
                   ListTimbangan(
                       colorCounter: Colors.redAccent,
                       beratHewan: "123.2",
                       counterPenimbangan: "3",
-                      tangalPenimbangan: "27 September 2022"),
+                      info: "1.10 Kg",
+                      tangalPenimbangan: "27-09-2022"),
                   ListTimbangan(
                       colorCounter: Colors.yellow,
                       beratHewan: "124.5",
+                      arrowUp: true,
+                      info: "1.30 Kg",
                       counterPenimbangan: "4",
-                      tangalPenimbangan: "27 November 2022"),
+                      tangalPenimbangan: "27-11-2022"),
                   ListTimbangan(
                       colorCounter: Colors.greenAccent,
                       beratHewan: "129.5",
+                      arrowUp: true,
+                      info: "4.40 Kg",
                       counterPenimbangan: "5",
-                      tangalPenimbangan: "27 Desember 2022"),
+                      tangalPenimbangan: "27-12-2022"),
                   ListTimbangan(
                       beratHewan: "131.8",
+                      arrowUp: true,
+                      info: "2.30 Kg",
                       counterPenimbangan: "6",
-                      tangalPenimbangan: "27 Februari 2022"),
+                      tangalPenimbangan: "27-02-2022"),
                 ],
               ),
             )
@@ -948,12 +960,16 @@ class ListTimbangan extends StatelessWidget {
   String tangalPenimbangan;
   String beratHewan;
   String counterPenimbangan;
+  String info;
   Color colorCounter;
+  bool arrowUp;
   ListTimbangan(
       {Key? key,
       this.beratHewan = '',
       this.counterPenimbangan = '',
       this.tangalPenimbangan = '',
+      this.info = '0.00 Kg',
+      this.arrowUp = false,
       this.colorCounter = Colors.greenAccent})
       : super(key: key);
 
@@ -965,12 +981,37 @@ class ListTimbangan extends StatelessWidget {
           Icons.verified,
           color: Colors.greenAccent,
         ),
-        subtitle: Text(
-          tangalPenimbangan,
-          style: TextStyle(fontWeight: FontWeight.bold),
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              tangalPenimbangan,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: [
+                arrowUp
+                    ? Icon(
+                        Icons.arrow_circle_up,
+                        color: Colors.greenAccent,
+                      )
+                    : Icon(
+                        Icons.arrow_circle_down,
+                        color: Colors.redAccent,
+                      ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  info,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            )
+          ],
         ),
         title: Text(
-          beratHewan + ' Kg',
+          '$beratHewan Kg',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: CircleAvatar(
